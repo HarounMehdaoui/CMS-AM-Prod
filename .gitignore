@@ -32,9 +32,17 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
+
+# Playwright MCP tool output (screenshots, snapshots, console/network logs from QA runs)
+/.playwright-mcp/
+
+# user-uploaded media (local disk storage)
+/public/uploads/*
+!/public/uploads/.gitkeep
 
 # typescript
 *.tsbuildinfo
