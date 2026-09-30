@@ -14,6 +14,9 @@ export const DEFAULT_IMAGES = {
     "acme-product-launch": {
       media: "http://localhost:3000/uploads/d5a91ad0-c4d0-42d2-8042-abd4c6b98098.png",
     },
+    "harbor-city-documentary": {
+      media: "http://localhost:3000/uploads/c8247db7-f67b-4244-a549-4812c1574fd7.png",
+    },
   },
   services: {
     "video-production": {
