@@ -127,11 +127,14 @@ doesn't collide with the `/admin/*` page routes in the App Router.
 
 - `POST /api/admin/login`, `POST /api/admin/logout`
 - `POST /api/admin/media` — multipart upload (`file` field), admin-auth-only, returns `{ "url": "..." }`. Shared by every upload field in the admin UI.
+- `GET /api/admin/media` — list every uploaded file with usage info (baseline / in-use / orphaned); backs the `/admin/media` library page.
+- `DELETE /api/admin/media/[filename]` — deletes one uploaded file; rejects baseline images (`400`) and files still referenced by a record (`409`).
 - For each of `projects`, `services`, `testimonials`, `clients`, `circle-ticker`:
   - `GET /api/admin/<entity>` — list **all** rows (draft + published), sorted by order
   - `POST /api/admin/<entity>` — create (validates with the entity's zod create schema; `409` if `id` already exists)
-  - `GET|PATCH|DELETE /api/admin/<entity>/[id]`
-- `GET|PUT /api/admin/hero-media` — singleton get/upsert, no delete
+  - `GET|PATCH|DELETE /api/admin/<entity>/[id]` — PATCH/DELETE automatically clean up the image/video file being replaced or removed (see [Media storage caveat](#media-storage-caveat-read-this-before-deploying))
+- `GET|PUT /api/admin/hero-media` — singleton get/upsert, no delete (same auto-cleanup on PUT)
+- `POST /api/admin/reset-images` — restores every image/video field to the baseline values in `lib/default-images.ts`; backs the "Reset images to defaults" button on `/admin`
 
 ### Slugs (`id`)
 
@@ -159,6 +162,16 @@ disk (a small VPS, Railway, Fly.io with a volume, etc.), or mount a persistent
 volume at `public/uploads` in your container. If a serverless host is a hard
 requirement, swap `lib/media.ts` for an S3-compatible upload instead — it's
 the one file that would need to change.
+
+**Disk hygiene:** replacing or deleting a record's image/video (`lib/media-cleanup.ts`,
+wired into every entity's PATCH/DELETE route and into reset-images) deletes the
+old file automatically — but only if nothing else still references it, and
+never if it's part of the reset-to-defaults baseline (`lib/default-images.ts`).
+Visit `/admin/media` to browse every uploaded file, see what's using it, and
+manually remove anything orphaned (e.g. from files uploaded but never saved to
+a record). The delete endpoint (`DELETE /api/admin/media/[filename]`) enforces
+the same two rules server-side — a baseline image or a still-referenced file
+can't be removed through it even if called directly.
 
 ## Deployment
 
