@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { query, queryOne } from "@/lib/db";
 import { buildUpdateSet } from "@/lib/crud";
+import { cleanupOrphanedFile } from "@/lib/media-cleanup";
 import { mapProject, projectUpdateSchema, type ProjectRow } from "@/lib/entities";
 
 export const dynamic = "force-dynamic";
@@ -40,6 +41,12 @@ export async function PATCH(
   if (setClauses.length === 0) {
     return NextResponse.json({ error: "No fields to update" }, { status: 400 });
   }
+
+  const previous =
+    "media" in parsed.data
+      ? await queryOne<{ media: string | null }>(`select media from projects where id = $1`, [id])
+      : null;
+
   setClauses.push(`updated_at = now()`);
   values.push(id);
 
@@ -48,6 +55,11 @@ export async function PATCH(
     values
   );
   if (!row) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  if (previous && previous.media !== row.media) {
+    await cleanupOrphanedFile(previous.media);
+  }
+
   return NextResponse.json(mapProject(row));
 }
 
@@ -56,6 +68,8 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
+  const row = await queryOne<{ media: string | null }>(`select media from projects where id = $1`, [id]);
   await query(`delete from projects where id = $1`, [id]);
+  if (row) await cleanupOrphanedFile(row.media);
   return NextResponse.json({ ok: true });
 }

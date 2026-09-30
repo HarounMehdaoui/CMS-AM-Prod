@@ -12,6 +12,7 @@ const LINKS = [
   { href: "/admin/clients", label: "Clients" },
   { href: "/admin/circle-ticker", label: "Circle ticker" },
   { href: "/admin/hero-media", label: "Hero media" },
+  { href: "/admin/media", label: "Media library" },
 ];
 
 export function Nav({ onNavigate }: { onNavigate?: () => void }) {

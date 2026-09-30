@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { queryOne } from "@/lib/db";
+import { cleanupOrphanedFile } from "@/lib/media-cleanup";
 import {
   mapHeroMedia,
   heroMediaUpsertSchema,
@@ -21,6 +22,10 @@ export async function PUT(req: NextRequest) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
   }
 
+  const previous = await queryOne<{ video_url: string }>(
+    `select video_url from hero_media where id = 1`
+  );
+
   const row = await queryOne<HeroMediaRow>(
     `insert into hero_media (id, video_url)
      values (1, $1)
@@ -28,6 +33,10 @@ export async function PUT(req: NextRequest) {
      returning *`,
     [parsed.data.videoUrl]
   );
+
+  if (previous && previous.video_url !== row!.video_url) {
+    await cleanupOrphanedFile(previous.video_url);
+  }
 
   return NextResponse.json(mapHeroMedia(row!));
 }

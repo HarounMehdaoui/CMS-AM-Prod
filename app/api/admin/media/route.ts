@@ -1,8 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { saveUploadedFile } from "@/lib/media";
+import { getMediaLibrary } from "@/lib/media-library";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+
+export async function GET() {
+  return NextResponse.json(await getMediaLibrary());
+}
 
 export async function POST(req: NextRequest) {
   const form = await req.formData().catch(() => null);

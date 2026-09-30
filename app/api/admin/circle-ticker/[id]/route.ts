@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { query, queryOne } from "@/lib/db";
 import { buildUpdateSet } from "@/lib/crud";
+import { cleanupOrphanedFile } from "@/lib/media-cleanup";
 import {
   mapCircleTicker,
   circleTickerUpdateSchema,
@@ -42,6 +43,15 @@ export async function PATCH(
   if (setClauses.length === 0) {
     return NextResponse.json({ error: "No fields to update" }, { status: 400 });
   }
+
+  const previous =
+    "imageUrl" in parsed.data
+      ? await queryOne<{ image_url: string }>(
+          `select image_url from circle_ticker_images where id = $1`,
+          [id]
+        )
+      : null;
+
   setClauses.push(`updated_at = now()`);
   values.push(id);
 
@@ -50,6 +60,11 @@ export async function PATCH(
     values
   );
   if (!row) return NextResponse.json({ error: "Not found" }, { status: 404 });
+
+  if (previous && previous.image_url !== row.image_url) {
+    await cleanupOrphanedFile(previous.image_url);
+  }
+
   return NextResponse.json(mapCircleTicker(row));
 }
 
@@ -58,6 +73,11 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   const { id } = await params;
+  const row = await queryOne<{ image_url: string }>(
+    `select image_url from circle_ticker_images where id = $1`,
+    [id]
+  );
   await query(`delete from circle_ticker_images where id = $1`, [id]);
+  if (row) await cleanupOrphanedFile(row.image_url);
   return NextResponse.json({ ok: true });
 }
