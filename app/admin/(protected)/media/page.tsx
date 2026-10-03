@@ -11,7 +11,7 @@ export default async function MediaLibraryPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-xl font-semibold">Media library</h1>
-        <p className="text-sm text-neutral-500">
+        <p className="text-sm text-[var(--color-omega-60)]">
           Every file ever uploaded through this CMS. Blue = part of the reset-to-defaults
           baseline (never deletable here). Amber = not used by any record — safe to remove.
           {orphanedCount > 0 && ` ${orphanedCount} file${orphanedCount === 1 ? "" : "s"} unused.`}

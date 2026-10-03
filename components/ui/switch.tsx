@@ -22,7 +22,7 @@ export function Switch({
       onClick={() => onCheckedChange(!checked)}
       className={cn(
         "relative h-6 w-11 shrink-0 rounded-full transition-colors disabled:opacity-50",
-        checked ? "bg-neutral-900" : "bg-neutral-300",
+        checked ? "bg-[var(--color-accent)]" : "bg-[var(--color-omega-10)]",
         className
       )}
     >

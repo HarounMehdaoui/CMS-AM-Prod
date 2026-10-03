@@ -1,26 +1,30 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #5013c7;
+  --color-secondary: #4f1ad6;
+  --color-accent: #8145f5;
+  --color-link: #9d82fa; /* same accent hue, lightened for AA contrast on black text links */
+
+  --color-black: #000000;
+  --color-alpha: #080808; /* card/panel surface, one step up from pure black */
+  --color-misty: #141414; /* hover/subtle-surface */
+
+  --color-omega: #ffffff;
+  --color-omega-80: rgba(255, 255, 255, 0.8);
+  --color-omega-60: rgba(255, 255, 255, 0.6);
+  --color-omega-40: rgba(255, 255, 255, 0.4);
+  --color-omega-10: rgba(255, 255, 255, 0.1); /* standard border color */
+
+  --radius-action: 10px; /* site uses 999px pills for marketing CTAs -- 10px reads as "form UI", not "landing page button" */
+  --border-default: 1px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-black);
+  color: var(--color-omega);
 }

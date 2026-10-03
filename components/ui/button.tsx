@@ -5,11 +5,13 @@ type Variant = "default" | "secondary" | "outline" | "destructive" | "ghost";
 type Size = "default" | "sm" | "icon";
 
 const variantClasses: Record<Variant, string> = {
-  default: "bg-neutral-900 text-white hover:bg-neutral-700",
-  secondary: "bg-neutral-100 text-neutral-900 hover:bg-neutral-200",
-  outline: "border border-neutral-300 bg-white hover:bg-neutral-50",
+  default: "bg-[var(--color-accent)] text-white hover:bg-[var(--color-secondary)]",
+  secondary:
+    "border border-[var(--color-omega-10)] bg-transparent text-[var(--color-omega-80)] hover:bg-[var(--color-misty)]",
+  outline:
+    "border border-[var(--color-omega-10)] bg-transparent text-[var(--color-omega-80)] hover:bg-[var(--color-misty)]",
   destructive: "bg-red-600 text-white hover:bg-red-700",
-  ghost: "hover:bg-neutral-100",
+  ghost: "text-[var(--color-omega-80)] hover:bg-[var(--color-misty)]",
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -28,7 +30,7 @@ export function buttonVariants({
   className?: string;
 } = {}) {
   return cn(
-    "inline-flex items-center justify-center gap-2 rounded-md font-medium transition-colors disabled:pointer-events-none disabled:opacity-50",
+    "inline-flex items-center justify-center gap-2 rounded-[var(--radius-action)] font-medium transition-colors disabled:pointer-events-none disabled:opacity-50",
     variantClasses[variant],
     sizeClasses[size],
     className

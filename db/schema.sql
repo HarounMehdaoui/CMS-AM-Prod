@@ -48,6 +48,18 @@ create table if not exists testimonials (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists team_members (
+  id text primary key,
+  name text not null,
+  role text not null,
+  bio text not null,
+  photo text not null,
+  published boolean not null default true,
+  "order" integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 create table if not exists clients (
   id text primary key,
   name text not null,

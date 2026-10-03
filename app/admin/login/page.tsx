@@ -39,11 +39,11 @@ function LoginForm() {
     <div className="flex min-h-screen items-center justify-center px-6">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm space-y-4 rounded-lg border border-neutral-200 p-6"
+        className="w-full max-w-sm space-y-4 rounded-[14px] border border-[var(--color-omega-10)] bg-[var(--color-alpha)] p-6"
       >
         <div>
           <h1 className="text-lg font-semibold">Alpha Motion CMS</h1>
-          <p className="text-sm text-neutral-500">Sign in to manage site content.</p>
+          <p className="text-sm text-[var(--color-omega-60)]">Sign in to manage site content.</p>
         </div>
         <div>
           <Label htmlFor="email">Email</Label>

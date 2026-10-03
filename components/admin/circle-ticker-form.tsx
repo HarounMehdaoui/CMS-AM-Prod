@@ -57,7 +57,10 @@ export function CircleTickerForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-2xl space-y-4 rounded-[14px] border border-[var(--color-omega-10)] bg-[var(--color-alpha)] p-6"
+    >
       <div>
         <Label>Image</Label>
         <FileUpload value={imageUrl} onChange={setImageUrl} accept="image/*" kind="image" />

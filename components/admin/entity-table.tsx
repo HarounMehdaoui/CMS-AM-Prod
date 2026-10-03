@@ -54,9 +54,9 @@ export function EntityTable<T extends EntityTableRow>({
   }
 
   return (
-    <div className="overflow-x-auto rounded-lg border border-neutral-200">
+    <div className="overflow-x-auto rounded-[14px] border border-[var(--color-omega-10)] bg-[var(--color-alpha)]">
       <table className="w-full text-sm">
-        <thead className="bg-neutral-50 text-left text-neutral-500">
+        <thead className="bg-[var(--color-misty)] text-left text-[var(--color-omega-60)]">
           <tr>
             {columns.map((col) => (
               <th key={col.header} className="px-4 py-2 font-medium">
@@ -70,7 +70,7 @@ export function EntityTable<T extends EntityTableRow>({
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.id} className="border-t border-neutral-100">
+            <tr key={row.id} className="border-t border-[var(--color-omega-10)]">
               {columns.map((col) => (
                 <td key={col.header} className="px-4 py-2 align-top">
                   {col.type === "image" ? (
@@ -85,7 +85,7 @@ export function EntityTable<T extends EntityTableRow>({
                   )}
                 </td>
               ))}
-              <td className="px-4 py-2 align-top text-neutral-500">{row.order}</td>
+              <td className="px-4 py-2 align-top text-[var(--color-omega-60)]">{row.order}</td>
               {hasPublished && (
                 <td className="px-4 py-2 align-top">
                   <Switch
@@ -96,7 +96,10 @@ export function EntityTable<T extends EntityTableRow>({
                 </td>
               )}
               <td className="whitespace-nowrap px-4 py-2 align-top">
-                <Link href={`${editBase}/${row.id}`} className="mr-3 text-neutral-700 underline">
+                <Link
+                  href={`${editBase}/${row.id}`}
+                  className="mr-3 text-[var(--color-link)] underline hover:text-white"
+                >
                   Edit
                 </Link>
                 <button
@@ -114,7 +117,7 @@ export function EntityTable<T extends EntityTableRow>({
             <tr>
               <td
                 colSpan={columns.length + 3}
-                className="px-4 py-8 text-center text-neutral-400"
+                className="px-4 py-8 text-center text-[var(--color-omega-40)]"
               >
                 No items yet.
               </td>

@@ -9,6 +9,7 @@ const LINKS = [
   { href: "/admin/projects", label: "Projects" },
   { href: "/admin/services", label: "Services" },
   { href: "/admin/testimonials", label: "Testimonials" },
+  { href: "/admin/team-members", label: "Team members" },
   { href: "/admin/clients", label: "Clients" },
   { href: "/admin/circle-ticker", label: "Circle ticker" },
   { href: "/admin/hero-media", label: "Hero media" },
@@ -30,10 +31,10 @@ export function Nav({ onNavigate }: { onNavigate?: () => void }) {
             href={link.href}
             onClick={onNavigate}
             className={cn(
-              "block rounded-md px-3 py-2 text-sm font-medium",
+              "block py-2 text-sm font-medium transition-colors",
               active
-                ? "bg-neutral-900 text-white"
-                : "text-neutral-700 hover:bg-neutral-100"
+                ? "rounded-r-[var(--radius-action)] border-l-2 border-[var(--color-accent)] bg-[var(--color-misty)] pl-[10px] pr-3 text-white"
+                : "rounded-[var(--radius-action)] px-3 text-[var(--color-omega-60)] hover:bg-[var(--color-misty)] hover:text-white"
             )}
           >
             {link.label}

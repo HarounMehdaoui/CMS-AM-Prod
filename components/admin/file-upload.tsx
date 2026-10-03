@@ -75,11 +75,15 @@ export function FileUpload({
         <img
           src={value}
           alt=""
-          className="h-24 w-24 rounded-md border border-neutral-200 object-cover"
+          className="h-24 w-24 rounded-md border border-[var(--color-omega-10)] object-cover"
         />
       )}
       {value && kind === "video" && (
-        <video src={value} className="h-32 rounded-md border border-neutral-200" controls />
+        <video
+          src={value}
+          className="h-32 rounded-md border border-[var(--color-omega-10)]"
+          controls
+        />
       )}
     </div>
   );

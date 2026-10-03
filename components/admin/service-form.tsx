@@ -75,7 +75,10 @@ export function ServiceForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-2xl space-y-4 rounded-[14px] border border-[var(--color-omega-10)] bg-[var(--color-alpha)] p-6"
+    >
       <div>
         <Label htmlFor="title">Title</Label>
         <Input
@@ -130,7 +133,7 @@ export function ServiceForm({
         <Label htmlFor="layout">Layout</Label>
         <select
           id="layout"
-          className="h-9 w-40 rounded-md border border-neutral-300 bg-white px-3 text-sm"
+          className="h-9 w-40 rounded-[8px] border border-[var(--color-omega-10)] bg-[var(--color-alpha)] px-3 text-sm text-white"
           value={layout}
           onChange={(e) => setLayout(e.target.value as "wide" | "tall")}
         >

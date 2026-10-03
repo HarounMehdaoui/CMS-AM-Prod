@@ -20,10 +20,11 @@ async function counts(table: string, hasPublished = true) {
 }
 
 export default async function DashboardPage() {
-  const [projects, services, testimonials, clients, ticker, hero] = await Promise.all([
+  const [projects, services, testimonials, teamMembers, clients, ticker, hero] = await Promise.all([
     counts("projects"),
     counts("services"),
     counts("testimonials"),
+    counts("team_members"),
     counts("clients", false),
     counts("circle_ticker_images", false),
     queryOne(`select 1 from hero_media where id = 1`),
@@ -33,6 +34,7 @@ export default async function DashboardPage() {
     { label: "Projects", href: "/admin/projects", ...projects, togglable: true },
     { label: "Services", href: "/admin/services", ...services, togglable: true },
     { label: "Testimonials", href: "/admin/testimonials", ...testimonials, togglable: true },
+    { label: "Team members", href: "/admin/team-members", ...teamMembers, togglable: true },
     { label: "Clients", href: "/admin/clients", ...clients, togglable: false },
     { label: "Circle ticker images", href: "/admin/circle-ticker", ...ticker, togglable: false },
   ];
@@ -48,12 +50,12 @@ export default async function DashboardPage() {
           <Link
             key={entity.href}
             href={entity.href}
-            className="rounded-lg border border-neutral-200 p-4 hover:border-neutral-400"
+            className="rounded-[14px] border border-[var(--color-omega-10)] bg-[var(--color-alpha)] p-4 hover:border-[var(--color-omega-40)]"
           >
-            <p className="text-sm text-neutral-500">{entity.label}</p>
+            <p className="text-sm text-[var(--color-omega-60)]">{entity.label}</p>
             <p className="mt-1 text-2xl font-semibold">{entity.total}</p>
             {entity.togglable && (
-              <p className="mt-1 text-xs text-neutral-500">
+              <p className="mt-1 text-xs text-[var(--color-omega-60)]">
                 {entity.published} published, {entity.total - entity.published} draft
               </p>
             )}
@@ -61,9 +63,9 @@ export default async function DashboardPage() {
         ))}
         <Link
           href="/admin/hero-media"
-          className="rounded-lg border border-neutral-200 p-4 hover:border-neutral-400"
+          className="rounded-[14px] border border-[var(--color-omega-10)] bg-[var(--color-alpha)] p-4 hover:border-[var(--color-omega-40)]"
         >
-          <p className="text-sm text-neutral-500">Hero media</p>
+          <p className="text-sm text-[var(--color-omega-60)]">Hero media</p>
           <p className="mt-1 text-2xl font-semibold">{hero ? "Configured" : "Not set"}</p>
         </Link>
       </div>

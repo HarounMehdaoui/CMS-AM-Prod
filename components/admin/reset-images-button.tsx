@@ -44,7 +44,11 @@ export function ResetImagesButton() {
         {status === "working" ? "Resetting…" : "Reset images to defaults"}
       </Button>
       {message && (
-        <p className={status === "error" ? "text-xs text-red-600" : "text-xs text-neutral-500"}>
+        <p
+          className={
+            status === "error" ? "text-xs text-red-600" : "text-xs text-[var(--color-omega-60)]"
+          }
+        >
           {message}
         </p>
       )}

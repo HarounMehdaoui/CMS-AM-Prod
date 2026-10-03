@@ -10,30 +10,29 @@ import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { FileUpload } from "@/components/admin/file-upload";
 import { slugify } from "@/lib/slugify";
-import type { ProjectOutput } from "@/lib/entities";
+import type { TeamMemberOutput } from "@/lib/entities";
 
-export function ProjectForm({
+export function TeamMemberForm({
   mode,
   initial,
 }: {
   mode: "create" | "edit";
-  initial?: ProjectOutput;
+  initial?: TeamMemberOutput;
 }) {
   const router = useRouter();
   const [id, setId] = useState(initial?.id ?? "");
   const [slugTouched, setSlugTouched] = useState(mode === "edit");
-  const [title, setTitle] = useState(initial?.title ?? "");
-  const [description, setDescription] = useState(initial?.description ?? "");
-  const [category, setCategory] = useState(initial?.category ?? "");
-  const [media, setMedia] = useState(initial?.media ?? "");
-  const [videoEmbed, setVideoEmbed] = useState(initial?.videoEmbed ?? "");
+  const [name, setName] = useState(initial?.name ?? "");
+  const [role, setRole] = useState(initial?.role ?? "");
+  const [bio, setBio] = useState(initial?.bio ?? "");
+  const [photo, setPhoto] = useState(initial?.photo ?? "");
   const [published, setPublished] = useState(initial?.published ?? true);
   const [order, setOrder] = useState(initial?.order ?? 0);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  function handleTitleChange(value: string) {
-    setTitle(value);
+  function handleNameChange(value: string) {
+    setName(value);
     if (!slugTouched) setId(slugify(value));
   }
 
@@ -44,16 +43,17 @@ export function ProjectForm({
     try {
       const body = {
         ...(mode === "create" ? { id } : {}),
-        title,
-        description,
-        category,
-        media: media || null,
-        videoEmbed: videoEmbed || null,
+        name,
+        role,
+        bio,
+        photo,
         published,
         order: Number(order),
       };
       const res = await fetch(
-        mode === "create" ? "/api/admin/projects" : `/api/admin/projects/${initial!.id}`,
+        mode === "create"
+          ? "/api/admin/team-members"
+          : `/api/admin/team-members/${initial!.id}`,
         {
           method: mode === "create" ? "POST" : "PATCH",
           headers: { "Content-Type": "application/json" },
@@ -62,7 +62,7 @@ export function ProjectForm({
       );
       const data = await res.json();
       if (!res.ok) throw new Error(extractErrorMessage(data));
-      router.push("/admin/projects");
+      router.push("/admin/team-members");
       router.refresh();
     } catch (err) {
       setError(err instanceof Error ? err.message : "Save failed");
@@ -77,12 +77,12 @@ export function ProjectForm({
       className="max-w-2xl space-y-4 rounded-[14px] border border-[var(--color-omega-10)] bg-[var(--color-alpha)] p-6"
     >
       <div>
-        <Label htmlFor="title">Title</Label>
+        <Label htmlFor="name">Name</Label>
         <Input
-          id="title"
+          id="name"
           required
-          value={title}
-          onChange={(e) => handleTitleChange(e.target.value)}
+          value={name}
+          onChange={(e) => handleNameChange(e.target.value)}
         />
       </div>
       <div>
@@ -97,52 +97,36 @@ export function ProjectForm({
             setId(slugify(e.target.value));
           }}
         />
-        {mode === "edit" && (
-          <p className="mt-1 text-xs text-[var(--color-omega-60)]">
-            The slug becomes this project&apos;s live URL and can&apos;t be changed after
-            creation. Delete and recreate the project if it needs a different one.
-          </p>
-        )}
-        {mode === "create" && !id && title.trim() !== "" && (
+        {mode === "create" && !id && name.trim() !== "" && (
           <p className="mt-1 text-xs text-amber-600">
-            Couldn&apos;t generate a slug from that title (it may not contain any
+            Couldn&apos;t generate a slug from that name (it may not contain any
             a–z/0–9 characters). Type one in manually before saving.
           </p>
         )}
       </div>
       <div>
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="role">Role</Label>
+        <Input
+          id="role"
+          required
+          placeholder="Creative Director"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        />
+      </div>
+      <div>
+        <Label htmlFor="bio">Bio</Label>
         <Textarea
-          id="description"
+          id="bio"
           required
           rows={4}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
         />
       </div>
       <div>
-        <Label htmlFor="category">Category</Label>
-        <Input
-          id="category"
-          required
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-        />
-      </div>
-      <div>
-        <Label>Cover image</Label>
-        <FileUpload value={media} onChange={setMedia} accept="image/*" kind="image" />
-      </div>
-      <div>
-        <Label htmlFor="videoEmbed">Video embed</Label>
-        <Textarea
-          id="videoEmbed"
-          rows={5}
-          className="font-mono text-xs"
-          placeholder="Paste the full embed code from Vimeo's Share → Embed option, e.g. <iframe src=&quot;https://player.vimeo.com/video/...&quot; ...></iframe>"
-          value={videoEmbed}
-          onChange={(e) => setVideoEmbed(e.target.value)}
-        />
+        <Label>Photo</Label>
+        <FileUpload value={photo} onChange={setPhoto} accept="image/*" kind="image" />
       </div>
       <div className="flex items-center gap-3">
         <Switch checked={published} onCheckedChange={setPublished} />
@@ -160,7 +144,7 @@ export function ProjectForm({
       </div>
       {error && <p className="text-sm text-red-600">{error}</p>}
       <Button type="submit" disabled={submitting}>
-        {submitting ? "Saving…" : mode === "create" ? "Create project" : "Save changes"}
+        {submitting ? "Saving…" : mode === "create" ? "Create team member" : "Save changes"}
       </Button>
     </form>
   );

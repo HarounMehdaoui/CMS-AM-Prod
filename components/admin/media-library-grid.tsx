@@ -43,28 +43,31 @@ export function MediaLibraryGrid({ items }: { items: MediaItem[] }) {
   }
 
   if (items.length === 0) {
-    return <p className="text-sm text-neutral-500">No uploaded files yet.</p>;
+    return <p className="text-sm text-[var(--color-omega-60)]">No uploaded files yet.</p>;
   }
 
   return (
     <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
       {items.map((item) => (
-        <div key={item.filename} className="space-y-2 rounded-lg border border-neutral-200 p-3">
+        <div
+          key={item.filename}
+          className="space-y-2 rounded-[14px] border border-[var(--color-omega-10)] bg-[var(--color-alpha)] p-3"
+        >
           {isVideo(item.filename) ? (
             <video src={item.url} className="h-24 w-full rounded object-cover" muted />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={item.url} alt="" className="h-24 w-full rounded object-cover" />
           )}
-          <p className="truncate text-xs text-neutral-500" title={item.filename}>
+          <p className="truncate text-xs text-[var(--color-omega-60)]" title={item.filename}>
             {item.filename}
           </p>
-          <p className="text-xs text-neutral-400">{formatSize(item.sizeBytes)}</p>
+          <p className="text-xs text-[var(--color-omega-40)]">{formatSize(item.sizeBytes)}</p>
           {item.isBaseline && (
-            <p className="text-xs font-medium text-blue-600">Default image — protected</p>
+            <p className="text-xs font-medium text-blue-500">Default image — protected</p>
           )}
           {!item.isBaseline && item.usages.length > 0 && (
-            <p className="text-xs text-neutral-500">
+            <p className="text-xs text-[var(--color-omega-60)]">
               In use by {item.usages.length} record{item.usages.length === 1 ? "" : "s"}
             </p>
           )}

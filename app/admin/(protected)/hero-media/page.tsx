@@ -11,7 +11,7 @@ export default async function HeroMediaPage() {
     <div className="space-y-4">
       <div>
         <h1 className="text-xl font-semibold">Hero media</h1>
-        <p className="text-sm text-neutral-500">
+        <p className="text-sm text-[var(--color-omega-60)]">
           The autoplaying background video on the homepage banner. There&apos;s only one.
         </p>
       </div>

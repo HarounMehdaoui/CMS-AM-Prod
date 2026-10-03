@@ -205,6 +205,65 @@ export const testimonialUpdateSchema = z.object({
 });
 
 /* ------------------------------------------------------------------ */
+/* Team members                                                        */
+/* ------------------------------------------------------------------ */
+
+export type TeamMemberRow = {
+  id: string;
+  name: string;
+  role: string;
+  bio: string;
+  photo: string;
+  published: boolean;
+  order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export const teamMemberOutputSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  role: z.string(),
+  bio: z.string(),
+  photo: z.string(),
+  published: z.boolean(),
+  order: z.number(),
+});
+export type TeamMemberOutput = z.infer<typeof teamMemberOutputSchema>;
+
+export function mapTeamMember(row: TeamMemberRow): TeamMemberOutput {
+  return {
+    id: row.id,
+    name: row.name,
+    role: row.role,
+    bio: row.bio,
+    photo: row.photo,
+    published: row.published,
+    order: row.order,
+  };
+}
+
+export const teamMemberCreateSchema = z.object({
+  id: slugSchema,
+  name: z.string().min(1),
+  role: z.string().min(1),
+  bio: z.string().min(1),
+  photo: z.string().min(1),
+  published: z.boolean().optional().default(true),
+  order: z.number().int().optional().default(0),
+});
+
+// See projectUpdateSchema for why this isn't derived via .omit().partial().
+export const teamMemberUpdateSchema = z.object({
+  name: z.string().min(1).optional(),
+  role: z.string().min(1).optional(),
+  bio: z.string().min(1).optional(),
+  photo: z.string().min(1).optional(),
+  published: z.boolean().optional(),
+  order: z.number().int().optional(),
+});
+
+/* ------------------------------------------------------------------ */
 /* Clients                                                              */
 /* ------------------------------------------------------------------ */
 
