@@ -46,7 +46,7 @@ export function TeamMemberForm({
         name,
         role,
         bio,
-        photo,
+        photo: photo || null,
         published,
         order: Number(order),
       };

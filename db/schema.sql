@@ -53,7 +53,7 @@ create table if not exists team_members (
   name text not null,
   role text not null,
   bio text not null,
-  photo text not null,
+  photo text,
   published boolean not null default true,
   "order" integer not null default 0,
   created_at timestamptz not null default now(),

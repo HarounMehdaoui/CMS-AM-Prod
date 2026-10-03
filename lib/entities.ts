@@ -213,7 +213,7 @@ export type TeamMemberRow = {
   name: string;
   role: string;
   bio: string;
-  photo: string;
+  photo: string | null;
   published: boolean;
   order: number;
   created_at: string;
@@ -225,7 +225,7 @@ export const teamMemberOutputSchema = z.object({
   name: z.string(),
   role: z.string(),
   bio: z.string(),
-  photo: z.string(),
+  photo: z.string().nullable(),
   published: z.boolean(),
   order: z.number(),
 });
@@ -248,7 +248,7 @@ export const teamMemberCreateSchema = z.object({
   name: z.string().min(1),
   role: z.string().min(1),
   bio: z.string().min(1),
-  photo: z.string().min(1),
+  photo: z.string().nullable().optional(),
   published: z.boolean().optional().default(true),
   order: z.number().int().optional().default(0),
 });
@@ -258,7 +258,7 @@ export const teamMemberUpdateSchema = z.object({
   name: z.string().min(1).optional(),
   role: z.string().min(1).optional(),
   bio: z.string().min(1).optional(),
-  photo: z.string().min(1).optional(),
+  photo: z.string().nullable().optional(),
   published: z.boolean().optional(),
   order: z.number().int().optional(),
 });
