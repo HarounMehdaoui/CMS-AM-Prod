@@ -7,17 +7,13 @@
  */
 
 export const DEFAULT_IMAGES = {
-  projects: {
-    "solstice-festival-aftermovie": {
-      media: "http://localhost:3000/uploads/9f12da47-22f3-4060-84b6-b87157eabd84.png",
-    },
-    "acme-product-launch": {
-      media: "http://localhost:3000/uploads/d5a91ad0-c4d0-42d2-8042-abd4c6b98098.png",
-    },
-    "harbor-city-documentary": {
-      media: "http://localhost:3000/uploads/c8247db7-f67b-4244-a549-4812c1574fd7.png",
-    },
-  },
+  // No project has ever had a real cover photo (see src/content/projects.json
+  // in the site repo — media is null for all 9 originals); the site renders
+  // a brand-toned placeholder instead. solstice-festival-aftermovie,
+  // acme-product-launch, and harbor-city-documentary used to point at
+  // synthetic "proj-X" demo swatches left over from the CMS's standalone
+  // build, which is why they're not listed here — same as the other 8.
+  projects: {} as Record<string, { media: string }>,
   services: {
     "video-production": {
       image: "http://localhost:3000/uploads/06869a02-219b-407b-806f-6baa165a23cd.png",
