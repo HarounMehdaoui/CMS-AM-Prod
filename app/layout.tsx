@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${dmSans.variable} h-full antialiased`}>
-      <body className="flex min-h-full flex-col font-[family-name:var(--font-dm-sans)]">
+      <body className="flex min-h-full flex-col overflow-x-hidden font-[family-name:var(--font-dm-sans)]">
         {children}
       </body>
     </html>

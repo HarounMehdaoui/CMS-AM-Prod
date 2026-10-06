@@ -9,7 +9,7 @@ export function AdminShell({ email, children }: { email: string; children: React
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <div className="mx-auto min-w-0 min-h-screen max-w-6xl px-4 py-4 sm:px-6 sm:py-8">
+    <div className="mx-auto w-full min-w-0 min-h-screen max-w-6xl px-4 py-4 sm:px-6 sm:py-8">
       <div className="mb-4 flex items-center justify-between border-b border-[var(--color-omega-10)] pb-4 md:hidden">
         <p className="text-lg font-semibold">Alpha Motion CMS</p>
         <button
@@ -23,7 +23,7 @@ export function AdminShell({ email, children }: { email: string; children: React
         </button>
       </div>
 
-      <div className="flex min-w-0 flex-col gap-6 md:flex-row md:gap-8">
+      <div className="flex w-full min-w-0 flex-col gap-6 md:flex-row md:gap-8">
         <aside
           className={cn(
             "w-full shrink-0 space-y-6 md:block md:w-56 md:border-r md:border-[var(--color-omega-10)]",
