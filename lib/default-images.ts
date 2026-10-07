@@ -1,57 +1,69 @@
 /**
- * Baseline "known-good" media for the demo dataset. `POST /api/admin/reset-images`
+ * Baseline "known-good" media for the real site content. `POST /api/admin/reset-images`
  * restores exactly these field values, by id, and leaves everything else
  * (text fields, published state, order, and any records not listed here)
  * untouched. Records created after this baseline was captured simply aren't
  * covered — reset never deletes or touches ids it doesn't recognize.
+ *
+ * Sourced directly from the site repo's src/content/*.json (the real site's
+ * own content), not invented. No project has ever had a real cover photo
+ * (projects.json has media: null across the board — the site renders a
+ * brand-toned placeholder instead), so `projects` stays empty; same reason
+ * `team_members` photos are null and untracked here.
  */
 
 export const DEFAULT_IMAGES = {
-  // No project has ever had a real cover photo (see src/content/projects.json
-  // in the site repo — media is null for all 9 originals); the site renders
-  // a brand-toned placeholder instead. solstice-festival-aftermovie,
-  // acme-product-launch, and harbor-city-documentary used to point at
-  // synthetic "proj-X" demo swatches left over from the CMS's standalone
-  // build, which is why they're not listed here — same as the other 8.
   projects: {} as Record<string, { media: string }>,
   services: {
-    "video-production": {
-      image: "http://localhost:3000/uploads/06869a02-219b-407b-806f-6baa165a23cd.png",
-      icon: "http://localhost:3000/uploads/75db44b3-27f7-4302-89d3-bc5c4c9fb16c.png",
+    "portrait-photography": {
+      image: "http://localhost:3000/uploads/99e932bc-cde1-41db-a461-fbc333354cb1.png",
+      icon: "http://localhost:3000/uploads/c6c265c3-76a9-4c38-aa30-75588836d8c4.svg",
     },
-    "motion-graphics": {
-      image: "http://localhost:3000/uploads/73a9b11a-fbfd-450c-a293-64c466609103.png",
-      icon: "http://localhost:3000/uploads/94d388f5-2d32-44f2-9b80-cef93d4e1f98.png",
+    "shot-with-top-gear": {
+      image: "http://localhost:3000/uploads/0928c54f-0e20-4345-acb5-c52bee66c100.png",
+      icon: "http://localhost:3000/uploads/1681e78c-5ae1-4425-beec-85d0fe1af312.svg",
     },
-    "drone-aerials": {
-      image: "http://localhost:3000/uploads/d3f394c4-bb0d-4498-b881-545f2ab89fdf.png",
-      icon: "http://localhost:3000/uploads/d78cf342-9a19-4051-b5bc-5042131f1aff.png",
+    "branding-lifestyle-photography": {
+      image: "http://localhost:3000/uploads/42f21047-ab97-4730-98f0-7d3c3523c26a.png",
+      icon: "http://localhost:3000/uploads/bcffc922-b755-460d-ab18-5db3ace6c35c.svg",
     },
   },
   testimonials: {
-    "jane-doe": {
-      avatar: "http://localhost:3000/uploads/5fedaa6b-a014-4f20-94f1-d363e80cd8e3.png",
+    "amelia-rhodes": {
+      avatar: "http://localhost:3000/uploads/80da90b3-32b5-472b-a802-5acb3aa23b02.png",
     },
-    "marcus-lee": {
-      avatar: "http://localhost:3000/uploads/9ca06cdd-4e7f-448e-8a80-06f2b6a2d493.png",
+    "marcus-webb": {
+      avatar: "http://localhost:3000/uploads/80da90b3-32b5-472b-a802-5acb3aa23b02.png",
     },
-    "priya-shah": {
-      avatar: "http://localhost:3000/uploads/8dc5af9a-5cea-4078-a479-4542449b98c6.png",
+    "priya-nandan": {
+      avatar: "http://localhost:3000/uploads/80da90b3-32b5-472b-a802-5acb3aa23b02.png",
+    },
+    "tobias-reyes": {
+      avatar: "http://localhost:3000/uploads/80da90b3-32b5-472b-a802-5acb3aa23b02.png",
+    },
+    "hana-ito": {
+      avatar: "http://localhost:3000/uploads/80da90b3-32b5-472b-a802-5acb3aa23b02.png",
+    },
+    "diego-fuentes": {
+      avatar: "http://localhost:3000/uploads/80da90b3-32b5-472b-a802-5acb3aa23b02.png",
+    },
+    "freya-lindqvist": {
+      avatar: "http://localhost:3000/uploads/80da90b3-32b5-472b-a802-5acb3aa23b02.png",
     },
   },
   clients: {
-    "client-1": { image: "http://localhost:3000/uploads/9d756b5a-9bfb-4374-84af-67fa5fc73582.png" },
-    "client-2": { image: "http://localhost:3000/uploads/427b5ad2-3233-4262-b7e9-3008186184b4.png" },
-    "client-3": { image: "http://localhost:3000/uploads/219c3db4-51d3-47df-8468-bb5eade8cd73.png" },
-    "client-4": { image: "http://localhost:3000/uploads/655e4a68-4fb5-4cf7-85ec-5b1d4bf45d6c.png" },
+    logo: { image: "http://localhost:3000/uploads/9d756b5a-9bfb-4374-84af-67fa5fc73582.png" },
+    "logo-ipsum": { image: "http://localhost:3000/uploads/427b5ad2-3233-4262-b7e9-3008186184b4.png" },
+    ipsum: { image: "http://localhost:3000/uploads/219c3db4-51d3-47df-8468-bb5eade8cd73.png" },
+    wave: { image: "http://localhost:3000/uploads/655e4a68-4fb5-4cf7-85ec-5b1d4bf45d6c.png" },
   },
   circleTicker: {
-    "ticker-1": { imageUrl: "http://localhost:3000/uploads/006c3f0e-789d-4734-bf63-5d09479904ea.png" },
-    "ticker-2": { imageUrl: "http://localhost:3000/uploads/6cf73d0d-65d4-4410-b421-cad91ab11cdf.png" },
-    "ticker-3": { imageUrl: "http://localhost:3000/uploads/4c56560a-5edd-4c26-96f7-1b7d343c9d6b.png" },
-    "ticker-4": { imageUrl: "http://localhost:3000/uploads/890fcecc-2c37-4767-b604-75e9b83cc258.png" },
-    "ticker-5": { imageUrl: "http://localhost:3000/uploads/76628e36-1103-40da-94e5-f6397676e92a.png" },
-    "ticker-6": { imageUrl: "http://localhost:3000/uploads/30933939-70f1-46ff-b22b-8b598197ea2d.png" },
+    "card-1": { imageUrl: "http://localhost:3000/uploads/006c3f0e-789d-4734-bf63-5d09479904ea.png" },
+    "card-2": { imageUrl: "http://localhost:3000/uploads/6cf73d0d-65d4-4410-b421-cad91ab11cdf.png" },
+    "card-3": { imageUrl: "http://localhost:3000/uploads/4c56560a-5edd-4c26-96f7-1b7d343c9d6b.png" },
+    "card-4": { imageUrl: "http://localhost:3000/uploads/890fcecc-2c37-4767-b604-75e9b83cc258.png" },
+    "card-5": { imageUrl: "http://localhost:3000/uploads/76628e36-1103-40da-94e5-f6397676e92a.png" },
+    "card-6": { imageUrl: "http://localhost:3000/uploads/30933939-70f1-46ff-b22b-8b598197ea2d.png" },
     "card-7": { imageUrl: "http://localhost:3000/uploads/a1bff65a-da5b-4490-b6eb-20a2f013dad9.png" },
     "card-8": { imageUrl: "http://localhost:3000/uploads/32f5ebcf-dd15-4230-9906-feffd949a603.png" },
     "card-9": { imageUrl: "http://localhost:3000/uploads/6308fae0-dd2d-4435-abc8-c42ae7e43ea1.png" },
