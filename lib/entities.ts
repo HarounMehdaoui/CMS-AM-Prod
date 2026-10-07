@@ -347,6 +347,50 @@ export const circleTickerUpdateSchema = z.object({
 });
 
 /* ------------------------------------------------------------------ */
+/* Studio gallery images                                               */
+/* ------------------------------------------------------------------ */
+
+export type StudioGalleryRow = {
+  id: string;
+  image_url: string;
+  caption: string | null;
+  order: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export const studioGalleryOutputSchema = z.object({
+  id: z.string(),
+  imageUrl: z.string(),
+  caption: z.string().nullable(),
+  order: z.number(),
+});
+export type StudioGalleryOutput = z.infer<typeof studioGalleryOutputSchema>;
+
+export function mapStudioGallery(row: StudioGalleryRow): StudioGalleryOutput {
+  return {
+    id: row.id,
+    imageUrl: row.image_url,
+    caption: row.caption,
+    order: row.order,
+  };
+}
+
+export const studioGalleryCreateSchema = z.object({
+  id: slugSchema,
+  imageUrl: z.string().min(1),
+  caption: z.string().nullable().optional(),
+  order: z.number().int().optional().default(0),
+});
+
+// See projectUpdateSchema for why this isn't derived via .omit().partial().
+export const studioGalleryUpdateSchema = z.object({
+  imageUrl: z.string().min(1).optional(),
+  caption: z.string().nullable().optional(),
+  order: z.number().int().optional(),
+});
+
+/* ------------------------------------------------------------------ */
 /* Hero media (singleton)                                              */
 /* ------------------------------------------------------------------ */
 

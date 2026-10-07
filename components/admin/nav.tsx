@@ -12,6 +12,7 @@ const LINKS = [
   { href: "/admin/team-members", label: "Team members" },
   { href: "/admin/clients", label: "Clients" },
   { href: "/admin/circle-ticker", label: "Circle ticker" },
+  { href: "/admin/studio-gallery", label: "Studio gallery" },
   { href: "/admin/hero-media", label: "Hero media" },
   { href: "/admin/media", label: "Media library" },
 ];

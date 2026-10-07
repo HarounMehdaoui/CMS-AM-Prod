@@ -40,6 +40,11 @@ export async function getMediaUsageMap(): Promise<Map<string, MediaUsage[]>> {
   );
   ticker.forEach((t) => add(t.image_url, "circle-ticker", t.id, "imageUrl"));
 
+  const studioGallery = await query<{ id: string; image_url: string }>(
+    `select id, image_url from studio_gallery_images`
+  );
+  studioGallery.forEach((s) => add(s.image_url, "studio-gallery", s.id, "imageUrl"));
+
   const hero = await query<{ id: number; video_url: string }>(
     `select id, video_url from hero_media`
   );
@@ -60,6 +65,8 @@ export async function isUrlReferenced(url: string): Promise<boolean> {
      select exists(select 1 from clients where image = $1)
      union all
      select exists(select 1 from circle_ticker_images where image_url = $1)
+     union all
+     select exists(select 1 from studio_gallery_images where image_url = $1)
      union all
      select exists(select 1 from hero_media where video_url = $1)`,
     [url]

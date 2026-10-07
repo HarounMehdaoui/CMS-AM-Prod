@@ -77,6 +77,15 @@ create table if not exists circle_ticker_images (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists studio_gallery_images (
+  id text primary key,
+  image_url text not null,
+  caption text,
+  "order" integer not null default 0,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 -- Singleton: exactly one row, id always 1.
 create table if not exists hero_media (
   id integer primary key default 1 check (id = 1),

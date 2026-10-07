@@ -20,15 +20,17 @@ async function counts(table: string, hasPublished = true) {
 }
 
 export default async function DashboardPage() {
-  const [projects, services, testimonials, teamMembers, clients, ticker, hero] = await Promise.all([
-    counts("projects"),
-    counts("services"),
-    counts("testimonials"),
-    counts("team_members"),
-    counts("clients", false),
-    counts("circle_ticker_images", false),
-    queryOne(`select 1 from hero_media where id = 1`),
-  ]);
+  const [projects, services, testimonials, teamMembers, clients, ticker, studioGallery, hero] =
+    await Promise.all([
+      counts("projects"),
+      counts("services"),
+      counts("testimonials"),
+      counts("team_members"),
+      counts("clients", false),
+      counts("circle_ticker_images", false),
+      counts("studio_gallery_images", false),
+      queryOne(`select 1 from hero_media where id = 1`),
+    ]);
 
   const entities: { label: string; href: string; total: number; published: number; togglable: boolean }[] = [
     { label: "Projects", href: "/admin/projects", ...projects, togglable: true },
@@ -37,6 +39,7 @@ export default async function DashboardPage() {
     { label: "Team members", href: "/admin/team-members", ...teamMembers, togglable: true },
     { label: "Clients", href: "/admin/clients", ...clients, togglable: false },
     { label: "Circle ticker images", href: "/admin/circle-ticker", ...ticker, togglable: false },
+    { label: "Studio gallery", href: "/admin/studio-gallery", ...studioGallery, togglable: false },
   ];
 
   return (
